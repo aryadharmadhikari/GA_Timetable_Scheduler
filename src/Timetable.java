@@ -30,18 +30,17 @@ public class Timetable {
     public void calculateFitness() {
         int score = 0;
 
-        // Rule 1: Check for unique subjects 
+        // --- Rule 1: Check for unique subjects ---
         Set<Integer> uniqueSubjects = new HashSet<>();
         for (int subjectId : schedule) {
             uniqueSubjects.add(subjectId);
         }
         score += uniqueSubjects.size() * 20;
 
-        // Rule 2: Check for excessive repeats 
-        // Count occurrences of each subject
+        // --- Rule 2: Check for excessive repeats ---
         Map<Integer, Long> counts = Arrays.stream(schedule)
-        .boxed()
-        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                                          .boxed()
+                                          .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         int subjectsWithOneSlot = 0;
         int subjectsWithTwoSlots = 0;
@@ -54,10 +53,28 @@ public class Timetable {
                 subjectsWithTwoSlots++;
             }
         }
-
-        // Reward 4 subjects with 1 slot and 1 subject with 2 slots
         score += subjectsWithOneSlot * 10;
         if (subjectsWithTwoSlots == 1) {
+            score += 10;
+        }
+
+        // --- NEW: Rule 3: Balanced distribution ---
+        // We defined "Core" subjects as 0 (DS) and 1 (Algo).
+        // Check for adjacent clustering (e.g., [..., 0, 1, ...] or [..., 1, 0, ...])
+        boolean isClustered = false;
+        for (int i = 0; i < NUM_SLOTS - 1; i++) {
+            int sub1 = schedule[i];
+            int sub2 = schedule[i+1];
+            
+            // Check if (DS, Algo) or (Algo, DS) are adjacent
+            if ((sub1 == 0 && sub2 == 1) || (sub1 == 1 && sub2 == 0)) {
+                isClustered = true;
+                break; // Found a cluster, no need to check further
+            }
+        }
+        
+        // If NO clusters were found, add a bonus
+        if (!isClustered) {
             score += 10;
         }
 

@@ -3,12 +3,12 @@ import java.util.Arrays;
 public class TimetableScheduler {
 
     // GA Parameters
-    public static final int POPULATION_SIZE = 100;
+    public static final int POPULATION_SIZE = 5;
     public static final double MUTATION_RATE = 0.02; // 2% chance
     public static final double CROSSOVER_RATE = 0.9; // 90% chance
     public static final int TOURNAMENT_SIZE = 3;
     public static final int MAX_GENERATIONS = 1000;
-    public static final int PERFECT_FITNESS = 150; // Our defined perfect score
+    public static final int PERFECT_FITNESS = 160; // Our defined perfect score
 
     // Subjects and Time definitions
     public static final String[] SUBJECTS = {"Data Structures", "Algorithms", "DBMS", "Operating Systems", "Computer Networks"};
