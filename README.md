@@ -8,11 +8,11 @@ To get a local copy up and running, follow these simple steps.
 
 1.  **Clone the repo**
     ```bash
-    git clone [https://github.com/your-username/your-repository-name.git](https://github.com/your-username/your-repository-name.git)
+    git clone https://github.com/aryadharmadhikari/GA_Timetable_Scheduler.git
     ```
 2.  Navigate to the project directory
     ```bash
-    cd your-repository-name
+    cd GA_Timetable_Scheduler
     ```
 
 ## 📁 File Structure
@@ -28,6 +28,10 @@ Here is an overview of the key files in the project:
 1.  Now that you know the files, compile all the Java source files:
     ```bash
     javac TimetableScheduler.java GeneticAlgorithm.java Timetable.java
+    ```
+    Alternative:
+    ```bash
+    javac *.java
     ```
 2.  Run the main class to start the simulation:
     ```bash
